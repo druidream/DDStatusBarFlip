@@ -25,7 +25,6 @@
 @synthesize overlayWindow = _overlayWindow;
 @synthesize topBar = _topBar;
 @synthesize imageView = _imageView;
-@synthesize timer;
 
 static CGFloat NOTIFICATION_BAR_HEIGHT = 20.0f;
 
@@ -152,13 +151,7 @@ static CGFloat NOTIFICATION_BAR_HEIGHT = 20.0f;
         _topBar = [[DDStatusBarView alloc] init];
         [self.overlayWindow.rootViewController.view addSubview:_topBar];
         
-//        JDStatusBarStyle *style = self.activeStyle ?: self.defaultStyle;
-//        if (style.animationType != JDStatusBarAnimationTypeFade) {
-//            self.topBar.transform = CGAffineTransformMakeTranslation(0, -self.topBar.frame.size.height);
-//        } else {
-//            self.topBar.alpha = 0.0;
-//        }
-        
+        // init topBar angle
         [self setCubeFlipAngle:-M_PI_2];
     }
     return _topBar;
@@ -167,7 +160,7 @@ static CGFloat NOTIFICATION_BAR_HEIGHT = 20.0f;
 - (UIImageView *)imageView {
     
     if (_imageView == nil) {
-        UIImage *image = [[UIImage alloc] initWithData:[self screenshot]];
+        UIImage *image = [[UIImage alloc] initWithData:[self screenshot] scale:[UIScreen mainScreen].scale];
         _imageView = [[UIImageView alloc] initWithImage:image];
         
         [self.overlayWindow.rootViewController.view addSubview:_imageView];
@@ -179,8 +172,6 @@ static CGFloat NOTIFICATION_BAR_HEIGHT = 20.0f;
 
 - (void)updateWindowTransform;
 {
-//    UIWindow *window = [[UIApplication sharedApplication]
-//                        mainApplicationWindowIgnoringWindow:self.overlayWindow];
     UIWindow *window = [[UIApplication sharedApplication] keyWindow];
     _overlayWindow.transform = window.transform;
     _overlayWindow.frame = window.frame;
@@ -202,10 +193,9 @@ static CGFloat NOTIFICATION_BAR_HEIGHT = 20.0f;
 
 #pragma mark -
 
-
-- (void)timerFired:(NSTimer *)timer {
+- (void)timerFired:(NSTimer *)sender {
     
-    BOOL isPresentation = [timer.userInfo boolValue];
+    BOOL isPresentation = [sender.userInfo boolValue];
     
     static float angle = -M_PI_2;
     if (isPresentation) {
@@ -221,12 +211,9 @@ static CGFloat NOTIFICATION_BAR_HEIGHT = 20.0f;
             angle = -M_PI_2;
             [self.timer invalidate];
             self.timer = nil;
-            [self.imageView removeFromSuperview];
+//            [self.imageView removeFromSuperview];
             self.imageView = nil;
             self.topBar = nil;
-            
-//            [self.overlayWindow.rootViewController.view setNeedsLayout];
-//            [self.overlayWindow.rootViewController.view layoutIfNeeded];
             self.overlayWindow = nil;
         }
         [self setCubeFlipAngle:angle];
@@ -248,10 +235,6 @@ static CGFloat NOTIFICATION_BAR_HEIGHT = 20.0f;
     CATransform3D mat2 = CATransform3DConcat(CATransform3DConcat(move, rotate2), back);
     CATransform3D mat3 = CATransform3DConcat(CATransform3DConcat(move, rotate3), back);
     
-    //    self.image1.layer.transform = CATransform3DPerspect(mat0, CGPointZero, 500);
-    //    self.image2.layer.transform = CATransform3DPerspect(mat1, CGPointZero, 500);
-    //    self.image3.layer.transform = CATransform3DPerspect(mat2, CGPointZero, 500);
-    //    self.image4.layer.transform = CATransform3DPerspect(mat3, CGPointZero, 500);
     self.topBar.layer.transform = CATransform3DPerspect(mat0, CGPointZero, 500.0f);
     self.imageView.layer.transform = CATransform3DPerspect(mat3, CGPointZero, 500.0f);
 }
@@ -259,18 +242,26 @@ static CGFloat NOTIFICATION_BAR_HEIGHT = 20.0f;
 - (NSData *)screenshot {
     
     UIWindow *window = [[UIApplication sharedApplication] valueForKey:@"statusBarWindow"];
-//    if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)])
-//        UIGraphicsBeginImageContextWithOptions(CGSizeMake(CGRectGetWidth(window.bounds), 20), NO, [UIScreen mainScreen].scale);
-//    else
-        UIGraphicsBeginImageContext(CGSizeMake(CGRectGetWidth(window.bounds), 20));
+    if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)])
+        UIGraphicsBeginImageContextWithOptions(CGSizeMake(CGRectGetWidth(window.bounds), NOTIFICATION_BAR_HEIGHT), NO, [UIScreen mainScreen].scale);
+    else
+        UIGraphicsBeginImageContext(CGSizeMake(CGRectGetWidth(window.bounds), NOTIFICATION_BAR_HEIGHT));
     
+    // first, draw keyWindow as background
+    [[UIApplication sharedApplication].keyWindow.layer renderInContext:UIGraphicsGetCurrentContext()];
+    
+    // second, draw status bar on top
     [window.layer renderInContext:UIGraphicsGetCurrentContext()];
+    
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-    NSData * imgData = UIImageJPEGRepresentation(image, 1.0f);
-//    NSData * imgData = UIImagePNGRepresentation(image);
+//    NSData * imgData = UIImageJPEGRepresentation(image, 1.0f);
+    NSData * imgData = UIImagePNGRepresentation(image);
+    
     if(imgData) {
-        [imgData writeToFile:@"screenshot.png" atomically:YES];
+        // for debug
+//        NSString *path = [NSString stringWithFormat:@"%@screenshot.png",  NSTemporaryDirectory()];
+//        [imgData writeToFile:path atomically:YES];
         return imgData;
     } else
         NSLog(@"error while taking screenshot");
