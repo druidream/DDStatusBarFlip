@@ -1,1 +1,1 @@
-![DDStatusBarFlip](https://cloud.githubusercontent.com/assets/7624568/15531807/f778a7a4-228e-11e6-9298-823795dd9800.gif)
+![DDStatusBarFlip](https://cloud.githubusercontent.com/assets/7624568/15533642/21e30c60-2298-11e6-9389-1337c8d2bfd7.gif)
