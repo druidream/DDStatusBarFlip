@@ -67,7 +67,7 @@ static CGFloat NOTIFICATION_BAR_HEIGHT = 20.0f;
 //    }
     
     // cancel previous dismissing & remove animations
-    [[NSRunLoop currentRunLoop] cancelPerformSelector:@selector(dismiss) target:self argument:nil];
+//    [[NSRunLoop currentRunLoop] cancelPerformSelector:@selector(dismiss) target:self argument:nil];
     [self.topBar.layer removeAllAnimations];
     
     // create & show window
@@ -226,13 +226,13 @@ static CGFloat NOTIFICATION_BAR_HEIGHT = 20.0f;
     CATransform3D back = CATransform3DMakeTranslation(0, 0, -10);
     
     CATransform3D rotate0 = CATransform3DMakeRotation(-angle, 1, 0, 0);
-    CATransform3D rotate1 = CATransform3DMakeRotation(M_PI_2-angle, 1, 0, 0);
-    CATransform3D rotate2 = CATransform3DMakeRotation(M_PI_2*2-angle, 1, 0, 0);
+//    CATransform3D rotate1 = CATransform3DMakeRotation(M_PI_2-angle, 1, 0, 0);
+//    CATransform3D rotate2 = CATransform3DMakeRotation(M_PI_2*2-angle, 1, 0, 0);
     CATransform3D rotate3 = CATransform3DMakeRotation(M_PI_2*3-angle, 1, 0, 0);
     
     CATransform3D mat0 = CATransform3DConcat(CATransform3DConcat(move, rotate0), back);
-    CATransform3D mat1 = CATransform3DConcat(CATransform3DConcat(move, rotate1), back);
-    CATransform3D mat2 = CATransform3DConcat(CATransform3DConcat(move, rotate2), back);
+//    CATransform3D mat1 = CATransform3DConcat(CATransform3DConcat(move, rotate1), back);
+//    CATransform3D mat2 = CATransform3DConcat(CATransform3DConcat(move, rotate2), back);
     CATransform3D mat3 = CATransform3DConcat(CATransform3DConcat(move, rotate3), back);
     
     self.topBar.layer.transform = CATransform3DPerspect(mat0, CGPointZero, 500.0f);

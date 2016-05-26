@@ -78,9 +78,6 @@
 				6A2EBABC1CF14BE2006FB871 /* DDStatusBarView.m */,
 				6A2EBAB81CF0BF19006FB871 /* DDStatusBarNotificationViewController.h */,
 				6A2EBAB91CF0BF19006FB871 /* DDStatusBarNotificationViewController.m */,
-				6A2EBAA41CEEBB8F006FB871 /* ViewController.h */,
-				6A2EBAA51CEEBB8F006FB871 /* ViewController.m */,
-				6A2EBAA71CEEBB8F006FB871 /* Main.storyboard */,
 				6A2EBA9E1CEEBB8F006FB871 /* Supporting Files */,
 			);
 			path = DDStatusBarFlip;
@@ -89,6 +86,9 @@
 		6A2EBA9E1CEEBB8F006FB871 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				6A2EBAA41CEEBB8F006FB871 /* ViewController.h */,
+				6A2EBAA51CEEBB8F006FB871 /* ViewController.m */,
+				6A2EBAA71CEEBB8F006FB871 /* Main.storyboard */,
 				6A2EBAAA1CEEBB90006FB871 /* Assets.xcassets */,
 				6A2EBAAC1CEEBB90006FB871 /* LaunchScreen.storyboard */,
 				6A2EBAAF1CEEBB90006FB871 /* Info.plist */,

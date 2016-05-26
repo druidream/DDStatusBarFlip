@@ -8,7 +8,6 @@
 
 #import "ViewController.h"
 #import "DDStatusBarNotification.h"
-#import "DDTransform3DPerspective.h"
 
 @interface ViewController ()
 
@@ -38,6 +37,10 @@
 - (IBAction)dismissButtonDidClick:(UIButton *)sender {
     
     [DDStatusBarNotification hide];
+}
+
+- (BOOL)prefersStatusBarHidden {
+    return NO;
 }
 
 @end

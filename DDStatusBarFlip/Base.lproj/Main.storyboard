@@ -36,6 +36,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bcj-Vg-fIx">
                                 <rect key="frame" x="90" y="224" width="140" height="50"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="BMw-ND-aba"/>
+                                </constraints>
                                 <state key="normal" title="dismiss">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -45,7 +48,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="X7H-bS-LqU" firstAttribute="top" secondItem="h0o-mE-JPf" secondAttribute="bottom" constant="117" id="8e2-yo-tdJ"/>
                             <constraint firstItem="X7H-bS-LqU" firstAttribute="centerX" secondItem="nc4-ZF-P0q" secondAttribute="centerX" id="CXW-0b-acR"/>
@@ -55,12 +58,17 @@
                             <constraint firstItem="Bcj-Vg-fIx" firstAttribute="top" secondItem="X7H-bS-LqU" secondAttribute="bottom" constant="37" id="jL6-tc-l3n"/>
                             <constraint firstItem="X7H-bS-LqU" firstAttribute="leading" secondItem="nc4-ZF-P0q" secondAttribute="leadingMargin" constant="74" id="ueh-Ab-2hk"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="hHw-Qz-mhf"/>
+                            </mask>
+                        </variation>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gge-yr-vjB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="227" y="-226"/>
+            <point key="canvasLocation" x="186" y="-246"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
